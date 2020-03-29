@@ -88,8 +88,5 @@ for utts in corpus.loadData():
     # print(corpus.curfile+" "+str(len(utts)))
     for u in utts:
         n=nbs.findall(u)
-        print(u)
-        nbs.classif()
-        nbs.showClass()
-
+        print(nbs.tostr())
 
