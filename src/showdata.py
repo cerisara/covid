@@ -1,4 +1,5 @@
 import corpus 
+from collections import Counter
 
 class NB:
     def findall(self,utt):
@@ -7,6 +8,7 @@ class NB:
         i=0
         while i<len(utt):
             if utt[i].isdigit():
+                j=len(utt)
                 for j in range(i+1,len(utt)):
                     if not utt[j].isdigit(): break
                 self.nbs.append((i,j))
@@ -83,13 +85,25 @@ class NB:
             a,b=self.nbs[i]
             print(t+"\t"+self.u[a:b])
 
-nbs = NB()
-for utts in corpus.loadData():
-    # print(corpus.curfile+" "+str(len(utts)))
-    for u in utts:
-        n=nbs.findall(u)
-        print(u)
-        nbs.classif()
-        nbs.showClass()
+def tmptodel():
+    nbs = NB()
+    for utts in corpus.loadData():
+        # print(corpus.curfile+" "+str(len(utts)))
+        for u in utts:
+            n=nbs.findall(u)
+            print(u)
+            nbs.classif()
+            nbs.showClass()
 
+def digitslen():
+    nbs = NB()
+    co = Counter()
+    for utts in corpus.loadData(True):
+        for u in utts:
+            n=nbs.findall(u)
+            s=nbs.tostr()
+            co.update([len(x) for x in s.strip().split(" ")])
+        print(co)
+
+digitslen() 
 
